@@ -2,13 +2,23 @@ package cui_xiang_cs340_p1;
 
 public class Instructor extends Thread {
 
+	public static boolean  entered = false;
+	static long[] examTime = {10000,30000,50000};
+	
+	
 	public Instructor(){
 		setName("Instructor");
 		start();
-		msg("The instructor enters into the classroom.");
+
 	}
 	
 	public void msg(String ms){
+		try {
+			sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("["+(currentTime())+"] "+getName()+" : "+ms);
 	}
 	
@@ -18,28 +28,21 @@ public class Instructor extends Thread {
 	}
 	
 	public void run(){
-		while(Variable.ClassStatus[Students.Classes.length-1]!="Done"){
-			for(int i=0; i<Students.Classes.length;i++){
-				if(currentTime() >= ClassSched[i] && currentTime() <=ClassSched[i]+classlength)
-					if(ClassStarted[i] == "No")
-						msg(" started "+ Students.Class[i]+".");
-					ClassStarted[i]="Yes";
-					Variable.ClassStatus[i]="On";
-					Variable.InstructorArrives.instructorArrivedToClass();
-					
-				if(currentTime() > ClassSched[i] + classlength) {
-					if(ClassStarted[i] == "Yes")
-						msg(" ended "+Students.Classes[i] + ".");
-					
-					ClassStarted[i] = "Done";
-					Variable.ClassStatus[i]="Over;"
-				}
-				
-			}
-			if(currentTime() >=ClassSched[1] + classlength && currentTime() <= ClassSched[2]){
-				if()
-			}
+		try {
+			sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		entered = true;	
+		//System.out.println(System.currentTimeMillis());
+		//System.out.println(Variable.time);
+		if(entered == true)
+			msg("The instructor enters into the classroom.");
+		else 
+			msg("Please wait for the instructor.");
 	}
+
+	
 	
 }
